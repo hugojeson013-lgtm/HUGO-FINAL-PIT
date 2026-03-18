@@ -1,0 +1,33 @@
+<!-- templates/enrollments/enrollment_detail.html -->
+{% extends 'base.html' %}
+
+{% block title %}Enrollment Details{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h1>Enrollment Details</h1>
+    
+    <p><strong>Enrollment ID:</strong> {{ enrollment.enrollment_id }}</p>
+    
+    <h2>Student Information</h2>
+    <p><strong>Name:</strong> {{ enrollment.student.first_name }} {{ enrollment.student.last_name }}</p>
+    <p><strong>Email:</strong> {{ enrollment.student.email }}</p>
+    <p><strong>Student Status:</strong> {{ enrollment.student.get_status_display }}</p>
+    
+    <h2>Course Information</h2>
+    <p><strong>Course Code:</strong> {{ enrollment.course.course_code }}</p>
+    <p><strong>Course Name:</strong> {{ enrollment.course.course_name }}</p>
+    <p><strong>Teacher:</strong> {{ enrollment.course.teacher|default:"No teacher assigned" }}</p>
+    <p><strong>Credits:</strong> {{ enrollment.course.credits }}</p>
+    
+    <h2>Enrollment Details</h2>
+    <p><strong>Enrollment Date:</strong> {{ enrollment.enrollment_date }}</p>
+    <p><strong>Grade:</strong> {{ enrollment.grade|default:"Not graded yet" }}</p>
+    <p><strong>Status:</strong> {{ enrollment.get_status_display }}</p>
+    
+    <div style="margin-top: 20px;">
+        <a href="{% url 'enrollment_list' %}" class="btn btn-secondary">Back to List</a>
+        <a href="{% url 'enrollment_delete' enrollment.pk %}" class="btn btn-danger">Delete Enrollment</a>
+    </div>
+</div>
+{% endblock %}

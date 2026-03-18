@@ -1,0 +1,28 @@
+<!-- templates/teachers/teacher_confirm_delete.html -->
+{% extends 'base.html' %}
+
+{% block title %}Delete Teacher{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h1>Delete Teacher</h1>
+    
+    <p>Are you sure you want to delete the following teacher?</p>
+    
+    <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; margin: 20px 0;">
+        <p><strong>Name:</strong> {{ teacher.first_name }} {{ teacher.last_name }}</p>
+        <p><strong>Email:</strong> {{ teacher.email }}</p>
+        <p><strong>Department:</strong> {{ teacher.department|default:"N/A" }}</p>
+    </div>
+    
+    <p style="color: #dc3545; font-weight: bold;">
+        ⚠️ Warning: This action cannot be undone.
+    </p>
+    
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Yes, Delete</button>
+        <a href="{% url 'teacher_list' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,51 @@
+<!-- templates/enrollments/enrollment_form.html -->
+{% extends 'base.html' %}
+
+{% block title %}Create Enrollment{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h1>Create New Enrollment</h1>
+    
+    <form method="post">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="student_id">Student *</label>
+            <select id="student_id" name="student_id" required>
+                <option value="">-- Select Student --</option>
+                {% for student in students %}
+                <option value="{{ student.student_id }}">
+                    {{ student.first_name }} {{ student.last_name }} ({{ student.email }})
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="course_id">Course *</label>
+            <select id="course_id" name="course_id" required>
+                <option value="">-- Select Course --</option>
+                {% for course in courses %}
+                <option value="{{ course.course_id }}">
+                    {{ course.course_code }} - {{ course.course_name }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="status">Status</label>
+            <select id="status" name="status">
+                <option value="enrolled" selected>Enrolled</option>
+                <option value="completed">Completed</option>
+                <option value="dropped">Dropped</option>
+                <option value="failed">Failed</option>
+            </select>
+        </div>
+        
+        <button type="submit" class="btn">Create Enrollment</button>
+        <a href="{% url 'enrollment_list' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

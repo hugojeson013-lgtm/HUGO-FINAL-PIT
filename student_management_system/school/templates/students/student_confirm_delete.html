@@ -1,0 +1,28 @@
+<!-- templates/students/student_confirm_delete.html -->
+{% extends 'base.html' %}
+
+{% block title %}Delete Student{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h1>Delete Student</h1>
+    
+    <p>Are you sure you want to delete the following student?</p>
+    
+    <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; margin: 20px 0;">
+        <p><strong>Name:</strong> {{ student.first_name }} {{ student.last_name }}</p>
+        <p><strong>Email:</strong> {{ student.email }}</p>
+        <p><strong>Status:</strong> {{ student.get_status_display }}</p>
+    </div>
+    
+    <p style="color: #dc3545; font-weight: bold;">
+        ⚠️ Warning: This action cannot be undone. All enrollments for this student will also be deleted.
+    </p>
+    
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Yes, Delete</button>
+        <a href="{% url 'student_list' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

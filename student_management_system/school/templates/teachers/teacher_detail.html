@@ -1,0 +1,49 @@
+<!-- templates/teachers/teacher_detail.html -->
+{% extends 'base.html' %}
+
+{% block title %}Teacher Details{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h1>Teacher Details</h1>
+    
+    <p><strong>ID:</strong> {{ teacher.teacher_id }}</p>
+    <p><strong>Name:</strong> {{ teacher.first_name }} {{ teacher.last_name }}</p>
+    <p><strong>Email:</strong> {{ teacher.email }}</p>
+    <p><strong>Phone:</strong> {{ teacher.phone|default:"N/A" }}</p>
+    <p><strong>Department:</strong> {{ teacher.department|default:"N/A" }}</p>
+    <p><strong>Specialization:</strong> {{ teacher.specialization|default:"N/A" }}</p>
+    <p><strong>Hire Date:</strong> {{ teacher.hire_date }}</p>
+    
+    <h2>Courses Teaching</h2>
+    {% if courses %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Course Code</th>
+                    <th>Course Name</th>
+                    <th>Credits</th>
+                    <th>Semester</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for course in courses %}
+                <tr>
+                    <td>{{ course.course_code }}</td>
+                    <td>{{ course.course_name }}</td>
+                    <td>{{ course.credits }}</td>
+                    <td>{{ course.semester|default:"N/A" }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Not teaching any courses yet.</p>
+    {% endif %}
+    
+    <div style="margin-top: 20px;">
+        <a href="{% url 'teacher_list' %}" class="btn btn-secondary">Back to List</a>
+        <a href="{% url 'teacher_delete' teacher.pk %}" class="btn btn-danger">Delete Teacher</a>
+    </div>
+</div>
+{% endblock %}

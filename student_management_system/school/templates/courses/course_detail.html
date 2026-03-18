@@ -1,0 +1,53 @@
+<!-- templates/courses/course_detail.html -->
+{% extends 'base.html' %}
+
+{% block title %}Course Details{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h1>Course Details</h1>
+    
+    <p><strong>ID:</strong> {{ course.course_id }}</p>
+    <p><strong>Course Code:</strong> {{ course.course_code }}</p>
+    <p><strong>Course Name:</strong> {{ course.course_name }}</p>
+    <p><strong>Teacher:</strong> {{ course.teacher|default:"No teacher assigned" }}</p>
+    <p><strong>Credits:</strong> {{ course.credits }}</p>
+    <p><strong>Max Capacity:</strong> {{ course.max_capacity }}</p>
+    <p><strong>Semester:</strong> {{ course.semester|default:"N/A" }}</p>
+    <p><strong>Description:</strong> {{ course.description|default:"No description" }}</p>
+    
+    <h2>Enrolled Students</h2>
+    {% if enrollments %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Email</th>
+                    <th>Enrollment Date</th>
+                    <th>Grade</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for enrollment in enrollments %}
+                <tr>
+                    <td>{{ enrollment.student.first_name }} {{ enrollment.student.last_name }}</td>
+                    <td>{{ enrollment.student.email }}</td>
+                    <td>{{ enrollment.enrollment_date }}</td>
+                    <td>{{ enrollment.grade|default:"N/A" }}</td>
+                    <td>{{ enrollment.get_status_display }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <p><strong>Total Enrolled:</strong> {{ enrollments|length }} / {{ course.max_capacity }}</p>
+    {% else %}
+        <p>No students enrolled yet.</p>
+    {% endif %}
+    
+    <div style="margin-top: 20px;">
+        <a href="{% url 'course_list' %}" class="btn btn-secondary">Back to List</a>
+        <a href="{% url 'course_delete' course.pk %}" class="btn btn-danger">Delete Course</a>
+    </div>
+</div>
+{% endblock %}

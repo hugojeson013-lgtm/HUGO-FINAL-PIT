@@ -1,0 +1,52 @@
+<!-- templates/teachers/teacher_form.html -->
+{% extends 'base.html' %}
+
+{% block title %}Add Teacher{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h1>Add New Teacher</h1>
+    
+    <form method="post">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="first_name">First Name *</label>
+            <input type="text" id="first_name" name="first_name" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="last_name">Last Name *</label>
+            <input type="text" id="last_name" name="last_name" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="email">Email *</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="phone">Phone</label>
+            <input type="text" id="phone" name="phone">
+        </div>
+        
+        <div class="form-group">
+            <label for="department">Department</label>
+            <input type="text" id="department" name="department">
+        </div>
+        
+        <div class="form-group">
+            <label for="specialization">Specialization</label>
+            <input type="text" id="specialization" name="specialization">
+        </div>
+        
+        <div class="form-group">
+            <label for="hire_date">Hire Date *</label>
+            <input type="date" id="hire_date" name="hire_date" required>
+        </div>
+        
+        <button type="submit" class="btn">Create Teacher</button>
+        <a href="{% url 'teacher_list' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}
